@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		168EA35190B293B7E243AAEC /* Pods_WoodieControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */; };
 		1B626EDA135638257816A06A /* Pods_WoodieControlUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */; };
+		5AAB59692234AAA200143E0E /* UIController+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */; };
 		5AEB3F4A2233D598002BE066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F492233D598002BE066 /* AppDelegate.swift */; };
 		5AEB3F4C2233D598002BE066 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F4B2233D598002BE066 /* ViewController.swift */; };
 		5AEB3F4F2233D598002BE066 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB3F4D2233D598002BE066 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControlUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIController+HideKeyboard.swift"; sourceTree = "<group>"; };
 		5AEB3F462233D598002BE066 /* WoodieControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WoodieControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AEB3F492233D598002BE066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AEB3F4B2233D598002BE066 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				5AEB3F502233D59C002BE066 /* Assets.xcassets */,
 				5AEB3F522233D59C002BE066 /* LaunchScreen.storyboard */,
 				5AEB3F552233D59C002BE066 /* Info.plist */,
+				5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */,
 			);
 			path = WoodieControl;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAB59692234AAA200143E0E /* UIController+HideKeyboard.swift in Sources */,
 				5AEB3F4C2233D598002BE066 /* ViewController.swift in Sources */,
 				5AEB3F4A2233D598002BE066 /* AppDelegate.swift in Sources */,
 			);
