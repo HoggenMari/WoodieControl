@@ -12,15 +12,21 @@ import CocoaMQTT
 
 class ViewController: UIViewController, CocoaMQTTDelegate {
     
-    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.102", port: 6667)
-    @IBOutlet weak var gcodeTextField: UITextField!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    var mqttClient: CocoaMQTT!
     
+    @IBOutlet weak var gcodeTextField: UITextField!
     @IBOutlet weak var connectBtn: UIButton!
     @IBOutlet weak var disconnectBtn: UIButton!
     @IBOutlet weak var gocdeTxt: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var shutdownBtn: UIButton!
     @IBOutlet weak var rebootBtn: UIButton!
+    @IBOutlet weak var ipAddressField: UITextField!
+    @IBOutlet weak var cameraContainerView: UIView!
+    
+    let DEFAULT_IP = "192.168.0.102"
     
     var isConnected:Bool {
         get {
@@ -35,10 +41,13 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        mqttClient = CocoaMQTT(clientID: "iOS Device", host: ipAddressField.text ?? DEFAULT_IP, port: 6667)
         isConnected = false
         
         self.hideKeyboardWhenTappedAround()
         mqttClient.delegate = self
+        
+        cameraContainerView.addSubview((appDelegate.videoViewController?.view)!)
         
     }
     
@@ -50,6 +59,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     }
 
     @IBAction func connect(_ sender: Any) {
+        //mqttClient = CocoaMQTT(clientID: "iOS Device", host: ipAddressField.text ?? "192.168.0.102", port: 6667)
+        mqttClient.host = ipAddressField.text ?? DEFAULT_IP
         mqttClient.connect()
     }
     

@@ -12,10 +12,27 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var settings = Settings()
+    var cameras = [Camera]()
+    var videoViewController: VideoViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        videoViewController = storyboard.instantiateViewController(withIdentifier: "VideoScene") as? VideoViewController
+        cameras = [Camera.init()]
+        videoViewController?.camera = cameras[0]
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -27,10 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        videoViewController?.stop()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        videoViewController?.start()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

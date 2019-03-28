@@ -9,11 +9,24 @@
 /* Begin PBXBuildFile section */
 		168EA35190B293B7E243AAEC /* Pods_WoodieControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */; };
 		1B626EDA135638257816A06A /* Pods_WoodieControlUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */; };
+		5AAA3A6B224CC777009ED7AA /* NetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A63224CC777009ED7AA /* NetworkInterface.swift */; };
+		5AAA3A6C224CC777009ED7AA /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A64224CC777009ED7AA /* StringExt.swift */; };
+		5AAA3A6D224CC777009ED7AA /* NavigationControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A65224CC777009ED7AA /* NavigationControllerExt.swift */; };
+		5AAA3A6E224CC777009ED7AA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A66224CC777009ED7AA /* Settings.swift */; };
+		5AAA3A6F224CC777009ED7AA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A67224CC777009ED7AA /* Utils.swift */; };
+		5AAA3A70224CC777009ED7AA /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A68224CC777009ED7AA /* Camera.swift */; };
+		5AAA3A71224CC777009ED7AA /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A69224CC777009ED7AA /* Reachability.swift */; };
+		5AAA3A72224CC777009ED7AA /* ZoomPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A6A224CC777009ED7AA /* ZoomPan.swift */; };
+		5AAA3A75224CC79A009ED7AA /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A74224CC79A009ED7AA /* VideoViewController.swift */; };
+		5AAA3A7A224CC7B8009ED7AA /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A77224CC7B7009ED7AA /* Popup.swift */; };
+		5AAA3A7B224CC7B8009ED7AA /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A78224CC7B7009ED7AA /* Button.swift */; };
+		5AAA3A7C224CC7B8009ED7AA /* IntTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A79224CC7B8009ED7AA /* IntTextField.swift */; };
+		5AAA3A81224CC7D0009ED7AA /* mysocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A7F224CC7D0009ED7AA /* mysocket.c */; };
+		5AAA3A83224CC83B009ED7AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA3A82224CC83B009ED7AA /* Assets.xcassets */; };
 		5AAB59692234AAA200143E0E /* UIController+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */; };
 		5AEB3F4A2233D598002BE066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F492233D598002BE066 /* AppDelegate.swift */; };
 		5AEB3F4C2233D598002BE066 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F4B2233D598002BE066 /* ViewController.swift */; };
 		5AEB3F4F2233D598002BE066 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB3F4D2233D598002BE066 /* Main.storyboard */; };
-		5AEB3F512233D59C002BE066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB3F502233D59C002BE066 /* Assets.xcassets */; };
 		5AEB3F542233D59C002BE066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB3F522233D59C002BE066 /* LaunchScreen.storyboard */; };
 		5AEB3F5F2233D59C002BE066 /* WoodieControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F5E2233D59C002BE066 /* WoodieControlTests.swift */; };
 		5AEB3F6A2233D59C002BE066 /* WoodieControlUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB3F692233D59C002BE066 /* WoodieControlUITests.swift */; };
@@ -40,12 +53,27 @@
 /* Begin PBXFileReference section */
 		3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControlUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AAA3A63224CC777009ED7AA /* NetworkInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInterface.swift; sourceTree = "<group>"; };
+		5AAA3A64224CC777009ED7AA /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
+		5AAA3A65224CC777009ED7AA /* NavigationControllerExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerExt.swift; sourceTree = "<group>"; };
+		5AAA3A66224CC777009ED7AA /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		5AAA3A67224CC777009ED7AA /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5AAA3A68224CC777009ED7AA /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		5AAA3A69224CC777009ED7AA /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		5AAA3A6A224CC777009ED7AA /* ZoomPan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomPan.swift; sourceTree = "<group>"; };
+		5AAA3A74224CC79A009ED7AA /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		5AAA3A77224CC7B7009ED7AA /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		5AAA3A78224CC7B7009ED7AA /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		5AAA3A79224CC7B8009ED7AA /* IntTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntTextField.swift; sourceTree = "<group>"; };
+		5AAA3A7E224CC7CE009ED7AA /* WoodieControl-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WoodieControl-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AAA3A7F224CC7D0009ED7AA /* mysocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mysocket.c; sourceTree = "<group>"; };
+		5AAA3A80224CC7D0009ED7AA /* mysocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mysocket.h; sourceTree = "<group>"; };
+		5AAA3A82224CC83B009ED7AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIController+HideKeyboard.swift"; sourceTree = "<group>"; };
 		5AEB3F462233D598002BE066 /* WoodieControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WoodieControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AEB3F492233D598002BE066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AEB3F4B2233D598002BE066 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5AEB3F4E2233D598002BE066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5AEB3F502233D59C002BE066 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AEB3F532233D59C002BE066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5AEB3F552233D59C002BE066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AEB3F5A2233D59C002BE066 /* WoodieControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WoodieControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +129,48 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5AAA3A62224CC759009ED7AA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5AAA3A68224CC777009ED7AA /* Camera.swift */,
+				5AAA3A65224CC777009ED7AA /* NavigationControllerExt.swift */,
+				5AAA3A63224CC777009ED7AA /* NetworkInterface.swift */,
+				5AAA3A69224CC777009ED7AA /* Reachability.swift */,
+				5AAA3A66224CC777009ED7AA /* Settings.swift */,
+				5AAA3A64224CC777009ED7AA /* StringExt.swift */,
+				5AAA3A67224CC777009ED7AA /* Utils.swift */,
+				5AAA3A6A224CC777009ED7AA /* ZoomPan.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		5AAA3A73224CC78B009ED7AA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5AAA3A74224CC79A009ED7AA /* VideoViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5AAA3A76224CC7AE009ED7AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5AAA3A78224CC7B7009ED7AA /* Button.swift */,
+				5AAA3A79224CC7B8009ED7AA /* IntTextField.swift */,
+				5AAA3A77224CC7B7009ED7AA /* Popup.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5AAA3A7D224CC7BF009ED7AA /* Sockets */ = {
+			isa = PBXGroup;
+			children = (
+				5AAA3A7F224CC7D0009ED7AA /* mysocket.c */,
+				5AAA3A80224CC7D0009ED7AA /* mysocket.h */,
+			);
+			path = Sockets;
+			sourceTree = "<group>";
+		};
 		5AEB3F3D2233D598002BE066 = {
 			isa = PBXGroup;
 			children = (
@@ -126,10 +196,15 @@
 		5AEB3F482233D598002BE066 /* WoodieControl */ = {
 			isa = PBXGroup;
 			children = (
+				5AAA3A7E224CC7CE009ED7AA /* WoodieControl-Bridging-Header.h */,
+				5AAA3A7D224CC7BF009ED7AA /* Sockets */,
+				5AAA3A76224CC7AE009ED7AA /* Views */,
+				5AAA3A73224CC78B009ED7AA /* ViewControllers */,
+				5AAA3A62224CC759009ED7AA /* Classes */,
 				5AEB3F492233D598002BE066 /* AppDelegate.swift */,
 				5AEB3F4B2233D598002BE066 /* ViewController.swift */,
+				5AAA3A82224CC83B009ED7AA /* Assets.xcassets */,
 				5AEB3F4D2233D598002BE066 /* Main.storyboard */,
-				5AEB3F502233D59C002BE066 /* Assets.xcassets */,
 				5AEB3F522233D59C002BE066 /* LaunchScreen.storyboard */,
 				5AEB3F552233D59C002BE066 /* Info.plist */,
 				5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */,
@@ -240,6 +315,7 @@
 				TargetAttributes = {
 					5AEB3F452233D598002BE066 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					5AEB3F592233D59C002BE066 = {
 						CreatedOnToolsVersion = 10.1;
@@ -277,7 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AEB3F542233D59C002BE066 /* LaunchScreen.storyboard in Resources */,
-				5AEB3F512233D59C002BE066 /* Assets.xcassets in Resources */,
+				5AAA3A83224CC83B009ED7AA /* Assets.xcassets in Resources */,
 				5AEB3F4F2233D598002BE066 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,9 +474,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAA3A6B224CC777009ED7AA /* NetworkInterface.swift in Sources */,
+				5AAA3A7A224CC7B8009ED7AA /* Popup.swift in Sources */,
 				5AAB59692234AAA200143E0E /* UIController+HideKeyboard.swift in Sources */,
+				5AAA3A7C224CC7B8009ED7AA /* IntTextField.swift in Sources */,
+				5AAA3A75224CC79A009ED7AA /* VideoViewController.swift in Sources */,
 				5AEB3F4C2233D598002BE066 /* ViewController.swift in Sources */,
+				5AAA3A6D224CC777009ED7AA /* NavigationControllerExt.swift in Sources */,
+				5AAA3A6E224CC777009ED7AA /* Settings.swift in Sources */,
+				5AAA3A7B224CC7B8009ED7AA /* Button.swift in Sources */,
 				5AEB3F4A2233D598002BE066 /* AppDelegate.swift in Sources */,
+				5AAA3A81224CC7D0009ED7AA /* mysocket.c in Sources */,
+				5AAA3A6C224CC777009ED7AA /* StringExt.swift in Sources */,
+				5AAA3A6F224CC777009ED7AA /* Utils.swift in Sources */,
+				5AAA3A72224CC777009ED7AA /* ZoomPan.swift in Sources */,
+				5AAA3A71224CC777009ED7AA /* Reachability.swift in Sources */,
+				5AAA3A70224CC777009ED7AA /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +665,8 @@
 			baseConfigurationReference = EEC818AD0B70B395166FDDD7 /* Pods-WoodieControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WB7BKJ2L9D;
 				INFOPLIST_FILE = WoodieControl/Info.plist;
@@ -583,8 +674,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = HoggenMari.WoodieControl;
+				PRODUCT_BUNDLE_IDENTIFIER = .WoodieControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WoodieControl/WoodieControl-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -595,6 +689,8 @@
 			baseConfigurationReference = 74046DC488E716CD543889DF /* Pods-WoodieControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WB7BKJ2L9D;
 				INFOPLIST_FILE = WoodieControl/Info.plist;
@@ -602,8 +698,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = HoggenMari.WoodieControl;
+				PRODUCT_BUNDLE_IDENTIFIER = .WoodieControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WoodieControl/WoodieControl-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
