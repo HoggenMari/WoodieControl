@@ -25,6 +25,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var rebootBtn: UIButton!
     @IBOutlet weak var ipAddressField: UITextField!
     @IBOutlet weak var cameraContainerView: UIView!
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
     
     let DEFAULT_IP = "192.168.0.102"
     
@@ -83,6 +85,15 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         }
     }
     
+    @IBAction func sendUp(_ sender: Any) {
+        mqttClient.publish("chalk", withString: "up")
+    }
+    
+    @IBAction func sendDown(_ sender: Any) {
+        mqttClient.publish("chalk", withString: "down")
+    }
+    
+    
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         isConnected = true
         print("didConnectAck")
@@ -130,6 +141,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             gocdeTxt.alpha = 1.0
             sendBtn.isEnabled = true
             sendBtn.alpha = 1.0
+            upButton.isEnabled = true
+            upButton.alpha = 1.0
+            downButton.isEnabled = true
+            downButton.alpha = 1.0
             shutdownBtn.isEnabled = true
             shutdownBtn.alpha = 1.0
             rebootBtn.isEnabled = true
@@ -141,6 +156,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             gocdeTxt.alpha = 0.5
             sendBtn.isEnabled = false
             sendBtn.alpha = 0.5
+            upButton.isEnabled = false
+            upButton.alpha = 0.5
+            downButton.isEnabled = false
+            downButton.alpha = 0.5
             shutdownBtn.isEnabled = false
             shutdownBtn.alpha = 0.5
             rebootBtn.isEnabled = false
