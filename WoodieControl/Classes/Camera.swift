@@ -27,6 +27,12 @@ class Camera: NSObject, NSCoding
 		self.port = port
     }
     
+    init(_ network: String, _ address: String)
+    {
+        self.network = network
+        self.address = address
+    }
+    
     //**********************************************************************
     // init
     //**********************************************************************

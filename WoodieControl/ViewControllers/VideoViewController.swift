@@ -536,7 +536,7 @@ class VideoViewController: UIViewController
 			if let cgImage = context.createCGImage(ciImage, from: CGRect(origin: CGPoint.zero, size: size))
 			{
 				let uiImage = UIImage(cgImage: cgImage)
-                let rotatedImage = uiImage.imageRotatedByDegrees(oldImage: uiImage, deg: 90)
+                let rotatedImage = uiImage.imageRotatedByDegrees(oldImage: uiImage, deg: -90)
 				DispatchQueue.main.async
 				{
 					self.imageView.image = rotatedImage

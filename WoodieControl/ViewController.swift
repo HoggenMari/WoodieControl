@@ -9,6 +9,7 @@
 import UIKit
 import SwiftSocket
 import CocoaMQTT
+import SystemConfiguration.CaptiveNetwork
 
 class ViewController: UIViewController, CocoaMQTTDelegate {
     
@@ -24,11 +25,13 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var shutdownBtn: UIButton!
     @IBOutlet weak var rebootBtn: UIButton!
     @IBOutlet weak var ipAddressField: UITextField!
+    @IBOutlet weak var wifiField: UITextField!
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     
     let DEFAULT_IP = "192.168.0.102"
+    let DEFAULT_WIFI = "TP-LINK_783C"
     
     var isConnected:Bool {
         get {
@@ -43,7 +46,13 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        mqttClient = CocoaMQTT(clientID: "iOS Device", host: ipAddressField.text ?? DEFAULT_IP, port: 6667)
+        let ip = UserDefaults.standard.string(forKey: "ip") ?? DEFAULT_IP
+        let wifi = UserDefaults.standard.string(forKey: "wifi") ?? DEFAULT_WIFI
+
+        ipAddressField.text = ip
+        wifiField.text = wifi
+        
+        mqttClient = CocoaMQTT(clientID: "iOS Device", host: ip, port: 6667)
         isConnected = false
         
         self.hideKeyboardWhenTappedAround()
@@ -61,9 +70,25 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     }
 
     @IBAction func connect(_ sender: Any) {
-        //mqttClient = CocoaMQTT(clientID: "iOS Device", host: ipAddressField.text ?? "192.168.0.102", port: 6667)
-        mqttClient.host = ipAddressField.text ?? DEFAULT_IP
+        
+        let ip = ipAddressField.text ?? DEFAULT_IP
+        mqttClient.disconnect()
+        mqttClient.host = ip
         mqttClient.connect()
+        
+        let wifi = wifiField.text ?? "Mariuss iPhone"
+        
+        UserDefaults.standard.set(ip, forKey: "ip")
+        UserDefaults.standard.set(wifi, forKey: "wifi")
+
+        
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        //appDelegate.videoViewController = storyboard.instantiateViewController(withIdentifier: "VideoScene") as? VideoViewController
+        appDelegate.videoViewController?.stop()
+        appDelegate.cameras = [Camera.init("Raspberry", wifi, ip, 5001)]
+        appDelegate.videoViewController?.camera = appDelegate.cameras[0]
+        appDelegate.videoViewController?.start()
     }
     
     @IBAction func disconnect(_ sender: Any) {
