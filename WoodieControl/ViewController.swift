@@ -29,6 +29,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var flowerButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    
     
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
@@ -158,6 +162,18 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         print("mqttDidDisconnect")
     }
     
+    @IBAction func drawFlower(_ sender: Any) {
+        mqttClient.publish("draw", withString: "flower")
+    }
+    
+    @IBAction func pauseButton(_ sender: Any) {
+        mqttClient.publish("control", withString: "pause")
+    }
+    
+    @IBAction func stopButton(_ sender: Any) {
+        mqttClient.publish("control", withString: "stop")
+    }
+    
     func setUI(for connected: Bool) {
         if connected {
             disconnectBtn.isEnabled = true
@@ -174,6 +190,12 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             shutdownBtn.alpha = 1.0
             rebootBtn.isEnabled = true
             rebootBtn.alpha = 1.0
+            flowerButton.isEnabled = true
+            flowerButton.alpha = 1.0
+            pauseButton.isEnabled = true
+            pauseButton.alpha = 1.0
+            stopButton.isEnabled = true
+            stopButton.alpha = 1.0
         } else {
             disconnectBtn.isEnabled = false
             disconnectBtn.alpha = 0.5
@@ -189,6 +211,12 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             shutdownBtn.alpha = 0.5
             rebootBtn.isEnabled = false
             rebootBtn.alpha = 0.5
+            flowerButton.isEnabled = false
+            flowerButton.alpha = 0.5
+            pauseButton.isEnabled = false
+            pauseButton.alpha = 0.5
+            stopButton.isEnabled = false
+            stopButton.alpha = 0.5
         }
     }
     
