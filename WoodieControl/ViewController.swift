@@ -29,7 +29,6 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
-    @IBOutlet weak var flowerButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     
@@ -190,8 +189,6 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             shutdownBtn.alpha = 1.0
             rebootBtn.isEnabled = true
             rebootBtn.alpha = 1.0
-            flowerButton.isEnabled = true
-            flowerButton.alpha = 1.0
             pauseButton.isEnabled = true
             pauseButton.alpha = 1.0
             stopButton.isEnabled = true
@@ -211,8 +208,6 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             shutdownBtn.alpha = 0.5
             rebootBtn.isEnabled = false
             rebootBtn.alpha = 0.5
-            flowerButton.isEnabled = false
-            flowerButton.alpha = 0.5
             pauseButton.isEnabled = false
             pauseButton.alpha = 0.5
             stopButton.isEnabled = false
