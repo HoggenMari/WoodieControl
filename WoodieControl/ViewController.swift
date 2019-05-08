@@ -31,10 +31,22 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var turboUpButton: UIButton!
+    @IBOutlet weak var turboDownButton: UIButton!
+    @IBOutlet weak var moveUpButton: UIButton!
+    @IBOutlet weak var moveDownButton: UIButton!
+    @IBOutlet weak var moveLeftButton: UIButton!
+    @IBOutlet weak var moveRightButton: UIButton!
+    @IBOutlet weak var moveStepper: UIStepper!
+    @IBOutlet weak var moveStepperLabel: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollableContent: UIView!
     
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
+    
+    var moveDistance = 0
     
     var isConnected:Bool {
         get {
@@ -63,6 +75,9 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         
         cameraContainerView.addSubview((appDelegate.videoViewController?.view)!)
         
+        let scrollSize = CGSize(width: scrollView.frame.size.width,
+                                height: scrollableContent.frame.size.height)
+        scrollableContent.frame.size = scrollSize
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +136,38 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         mqttClient.publish("chalk", withString: "down")
     }
     
+    @IBAction func sendTurboUp(_ sender: Any) {
+        mqttClient.publish("chalk", withString: "turboup")
+    }
+    
+    @IBAction func sendTurboDown(_ sender: Any) {
+        mqttClient.publish("chalk", withString: "turbodown")
+    }
+    
+    @IBAction func sendMoveUp(_ sender: Any) {
+        let string = "up " + String(moveDistance)
+        mqttClient.publish("move", withString: string)
+    }
+    
+    @IBAction func sendMoveDown(_ sender: Any) {
+        let string = "down " + String(moveDistance)
+        mqttClient.publish("move", withString: string)
+    }
+    
+    @IBAction func sendMoveLeft(_ sender: Any) {
+        let string = "left " + String(moveDistance)
+        mqttClient.publish("move", withString: string)
+    }
+    
+    @IBAction func sendMoveRight(_ sender: Any) {
+        let string = "right " + String(moveDistance)
+        mqttClient.publish("move", withString: string)
+    }
+    
+    @IBAction func moveStepper(_ sender: UIStepper) {
+        moveDistance = Int(sender.value)
+        moveStepperLabel.text = Int(sender.value).description + " cm"
+    }
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         isConnected = true
@@ -183,8 +230,12 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             sendBtn.alpha = 1.0
             upButton.isEnabled = true
             upButton.alpha = 1.0
+            turboUpButton.isEnabled = true
+            turboUpButton.alpha = 1.0
             downButton.isEnabled = true
             downButton.alpha = 1.0
+            turboDownButton.isEnabled = true
+            turboDownButton.alpha = 1.0
             shutdownBtn.isEnabled = true
             shutdownBtn.alpha = 1.0
             rebootBtn.isEnabled = true
@@ -193,6 +244,18 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             pauseButton.alpha = 1.0
             stopButton.isEnabled = true
             stopButton.alpha = 1.0
+            moveUpButton.isEnabled = true
+            moveUpButton.alpha = 1.0
+            moveDownButton.isEnabled = true
+            moveDownButton.alpha = 1.0
+            moveLeftButton.isEnabled = true
+            moveLeftButton.alpha = 1.0
+            moveRightButton.isEnabled = true
+            moveRightButton.alpha = 1.0
+            moveStepper.isEnabled = true
+            moveStepper.alpha = 1.0
+            moveStepperLabel.isEnabled = true
+            moveStepperLabel.alpha = 1.0
         } else {
             disconnectBtn.isEnabled = false
             disconnectBtn.alpha = 0.5
@@ -202,8 +265,12 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             sendBtn.alpha = 0.5
             upButton.isEnabled = false
             upButton.alpha = 0.5
+            turboUpButton.isEnabled = false
+            turboUpButton.alpha = 0.5
             downButton.isEnabled = false
             downButton.alpha = 0.5
+            turboDownButton.isEnabled = false
+            turboDownButton.alpha = 0.5
             shutdownBtn.isEnabled = false
             shutdownBtn.alpha = 0.5
             rebootBtn.isEnabled = false
@@ -212,6 +279,18 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
             pauseButton.alpha = 0.5
             stopButton.isEnabled = false
             stopButton.alpha = 0.5
+            moveUpButton.isEnabled = false
+            moveUpButton.alpha = 0.5
+            moveDownButton.isEnabled = false
+            moveDownButton.alpha = 0.5
+            moveLeftButton.isEnabled = false
+            moveLeftButton.alpha = 0.5
+            moveRightButton.isEnabled = false
+            moveRightButton.alpha = 0.5
+            moveStepper.isEnabled = false
+            moveStepper.alpha = 0.5
+            moveStepperLabel.isEnabled = false
+            moveStepperLabel.alpha = 0.5
         }
     }
     
