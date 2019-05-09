@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		168EA35190B293B7E243AAEC /* Pods_WoodieControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */; };
 		1B626EDA135638257816A06A /* Pods_WoodieControlUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */; };
+		5AA5E5F1228415BD0019BBBB /* DrawingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA5E5F0228415BD0019BBBB /* DrawingCell.swift */; };
 		5AAA3A6B224CC777009ED7AA /* NetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A63224CC777009ED7AA /* NetworkInterface.swift */; };
 		5AAA3A6C224CC777009ED7AA /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A64224CC777009ED7AA /* StringExt.swift */; };
 		5AAA3A6D224CC777009ED7AA /* NavigationControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA3A65224CC777009ED7AA /* NavigationControllerExt.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		3B787010331A99B944353BBD /* Pods_WoodieControlUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControlUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49942904899BFBE90F117EDD /* Pods_WoodieControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WoodieControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AA5E5F0228415BD0019BBBB /* DrawingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCell.swift; sourceTree = "<group>"; };
 		5AAA3A63224CC777009ED7AA /* NetworkInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInterface.swift; sourceTree = "<group>"; };
 		5AAA3A64224CC777009ED7AA /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		5AAA3A65224CC777009ED7AA /* NavigationControllerExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerExt.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				5AEB3F522233D59C002BE066 /* LaunchScreen.storyboard */,
 				5AEB3F552233D59C002BE066 /* Info.plist */,
 				5AAB59682234AAA200143E0E /* UIController+HideKeyboard.swift */,
+				5AA5E5F0228415BD0019BBBB /* DrawingCell.swift */,
 			);
 			path = WoodieControl;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				5AAA3A81224CC7D0009ED7AA /* mysocket.c in Sources */,
 				5AAA3A6C224CC777009ED7AA /* StringExt.swift in Sources */,
 				5AAA3A6F224CC777009ED7AA /* Utils.swift in Sources */,
+				5AA5E5F1228415BD0019BBBB /* DrawingCell.swift in Sources */,
 				5AAA3A72224CC777009ED7AA /* ZoomPan.swift in Sources */,
 				5AAA3A71224CC777009ED7AA /* Reachability.swift in Sources */,
 				5AAA3A70224CC777009ED7AA /* Camera.swift in Sources */,

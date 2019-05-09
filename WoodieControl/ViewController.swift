@@ -11,7 +11,7 @@ import SwiftSocket
 import CocoaMQTT
 import SystemConfiguration.CaptiveNetwork
 
-class ViewController: UIViewController, CocoaMQTTDelegate {
+class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -43,6 +43,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollableContent: UIView!
     
+    @IBOutlet weak var drawingCollectionView: UICollectionView!
+    
+    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3") ]
+
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
     
@@ -78,6 +82,9 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         let scrollSize = CGSize(width: scrollView.frame.size.width,
                                 height: scrollableContent.frame.size.height)
         scrollableContent.frame.size = scrollSize
+        
+        drawingCollectionView.delegate = self
+        drawingCollectionView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -294,5 +301,26 @@ class ViewController: UIViewController, CocoaMQTTDelegate {
         }
     }
     
-}
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return drawingImages.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell:DrawingCell =
+            drawingCollectionView.dequeueReusableCell(withReuseIdentifier: "DrawingCell", for: indexPath) as! DrawingCell
+        
+        cell.initCellItem(with: drawingImages[indexPath.row]!)
+        
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let number = String(indexPath.row+1)
+        mqttClient.publish("draw", withString: number)
 
+    }
+    
+    
+}
