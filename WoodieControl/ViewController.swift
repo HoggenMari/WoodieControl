@@ -10,6 +10,7 @@ import UIKit
 import SwiftSocket
 import CocoaMQTT
 import SystemConfiguration.CaptiveNetwork
+import MaterialComponents
 
 class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -39,6 +40,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var moveRightButton: UIButton!
     @IBOutlet weak var moveStepper: UIStepper!
     @IBOutlet weak var moveStepperLabel: UILabel!
+    @IBOutlet weak var resumeButton: UIButton!
+    @IBOutlet weak var progressView: UIView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollableContent: UIView!
@@ -51,6 +54,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     let DEFAULT_WIFI = "TP-LINK_783C"
     
     var moveDistance = 0
+    
+    var pV: MDCProgressView!
     
     var isConnected:Bool {
         get {
@@ -85,6 +90,17 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         
         drawingCollectionView.delegate = self
         drawingCollectionView.dataSource = self
+        
+        pV = MDCProgressView()
+        pV.progress = 0.0
+        pV.backgroundColor = .clear
+        pV.trackTintColor = .white
+        pV.progressTintColor = .purple
+        
+        
+        let pVHeight = CGFloat(20)
+        pV.frame = CGRect(x: 0, y: progressView.bounds.height - pVHeight, width: progressView.bounds.width, height: pVHeight)
+        progressView.addSubview(pV)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +117,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         mqttClient.host = ip
         mqttClient.connect()
         
+        //mqttClient.subscribe("drawingstatus")
+
         let wifi = wifiField.text ?? "Mariuss iPhone"
         
         UserDefaults.standard.set(ip, forKey: "ip")
@@ -179,6 +197,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         isConnected = true
         print("didConnectAck")
+        
+        if ack == .accept {
+            mqtt.subscribe("drawingstatus", qos: CocoaMQTTQOS.qos1)
+        }
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
@@ -191,6 +213,12 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
         print("didReceiveMessage")
+        
+        if (message.topic == "drawingstatus") {
+            let percent = Float(message.string!)
+            pV.progress = percent ?? 0.0
+            print(message.topic)
+        }
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topic: String) {
@@ -226,6 +254,11 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBAction func stopButton(_ sender: Any) {
         mqttClient.publish("control", withString: "stop")
     }
+    
+    @IBAction func resumeButton(_ sender: Any) {
+        mqttClient.publish("control", withString: "resume")
+    }
+    
     
     func setUI(for connected: Bool) {
         if connected {

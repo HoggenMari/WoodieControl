@@ -8,6 +8,7 @@ target 'WoodieControl' do
   # Pods for WoodieControl
   pod 'SwiftSocket'
   pod 'CocoaMQTT'
+  pod 'MaterialComponents/ProgressView'
   
   target 'WoodieControlTests' do
     inherit! :search_paths
