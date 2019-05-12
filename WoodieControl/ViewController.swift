@@ -52,7 +52,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var drawingCollectionView: UICollectionView!
     @IBOutlet weak var lightPatternCollectionView: UICollectionView!
     
-    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3") ]
+    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3"), UIImage(named: "drawing4"), UIImage(named: "drawing5"), UIImage(named: "drawing6") ]
 
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
@@ -319,6 +319,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             cameraContainerView.alpha = 1.0
             drawingCollectionView.alpha = 1.0
             lightPatternCollectionView.alpha = 1.0
+            lightPatternCollectionView.allowsSelection = true
+            drawingCollectionView.allowsSelection = true
             progressView.alpha = 1.0
         } else {
             disconnectBtn.isEnabled = false
@@ -364,6 +366,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             cameraContainerView.alpha = alphaButton
             drawingCollectionView.alpha = alphaButton
             lightPatternCollectionView.alpha = alphaButton
+            lightPatternCollectionView.allowsSelection = false
+            drawingCollectionView.allowsSelection = false
             progressView.alpha = alphaButton
         }
     }
