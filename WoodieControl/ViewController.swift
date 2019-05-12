@@ -42,11 +42,15 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var moveStepperLabel: UILabel!
     @IBOutlet weak var resumeButton: UIButton!
     @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var lightButton: UIButton!
+    @IBOutlet weak var guidanceButton: UIButton!
+    
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollableContent: UIView!
     
     @IBOutlet weak var drawingCollectionView: UICollectionView!
+    @IBOutlet weak var lightPatternCollectionView: UICollectionView!
     
     let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3") ]
 
@@ -56,6 +60,8 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     var moveDistance = 0
     
     var pV: MDCProgressView!
+    
+    let alphaButton: CGFloat = 0.3
     
     var isConnected:Bool {
         get {
@@ -259,6 +265,14 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         mqttClient.publish("control", withString: "resume")
     }
     
+    @IBAction func lightsOnButton(_ sender: Any) {
+        mqttClient.publish("lightcontrol", withString: "togglelight")
+    }
+    
+    @IBAction func guidanceOnButton(_ sender: Any) {
+        mqttClient.publish("lightcontrol", withString: "toggleguidance")
+    }
+    
     
     func setUI(for connected: Bool) {
         if connected {
@@ -296,41 +310,61 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             moveStepper.alpha = 1.0
             moveStepperLabel.isEnabled = true
             moveStepperLabel.alpha = 1.0
+            lightButton.isEnabled = true
+            lightButton.alpha = 1.0
+            guidanceButton.isEnabled = true
+            guidanceButton.alpha = 1.0
+            resumeButton.isEnabled = true
+            resumeButton.alpha = 1.0
+            cameraContainerView.alpha = 1.0
+            drawingCollectionView.alpha = 1.0
+            lightPatternCollectionView.alpha = 1.0
+            progressView.alpha = 1.0
         } else {
             disconnectBtn.isEnabled = false
-            disconnectBtn.alpha = 0.5
+            disconnectBtn.alpha = alphaButton
             gocdeTxt.isEnabled = false
-            gocdeTxt.alpha = 0.5
+            gocdeTxt.alpha = alphaButton
             sendBtn.isEnabled = false
-            sendBtn.alpha = 0.5
+            sendBtn.alpha = alphaButton
             upButton.isEnabled = false
-            upButton.alpha = 0.5
+            upButton.alpha = alphaButton
             turboUpButton.isEnabled = false
-            turboUpButton.alpha = 0.5
+            turboUpButton.alpha = alphaButton
             downButton.isEnabled = false
-            downButton.alpha = 0.5
+            downButton.alpha = alphaButton
             turboDownButton.isEnabled = false
-            turboDownButton.alpha = 0.5
+            turboDownButton.alpha = alphaButton
             shutdownBtn.isEnabled = false
-            shutdownBtn.alpha = 0.5
+            shutdownBtn.alpha = alphaButton
             rebootBtn.isEnabled = false
-            rebootBtn.alpha = 0.5
+            rebootBtn.alpha = alphaButton
             pauseButton.isEnabled = false
-            pauseButton.alpha = 0.5
+            pauseButton.alpha = alphaButton
             stopButton.isEnabled = false
-            stopButton.alpha = 0.5
+            stopButton.alpha = alphaButton
             moveUpButton.isEnabled = false
-            moveUpButton.alpha = 0.5
+            moveUpButton.alpha = alphaButton
             moveDownButton.isEnabled = false
-            moveDownButton.alpha = 0.5
+            moveDownButton.alpha = alphaButton
             moveLeftButton.isEnabled = false
-            moveLeftButton.alpha = 0.5
+            moveLeftButton.alpha = alphaButton
             moveRightButton.isEnabled = false
-            moveRightButton.alpha = 0.5
+            moveRightButton.alpha = alphaButton
             moveStepper.isEnabled = false
-            moveStepper.alpha = 0.5
+            moveStepper.alpha = alphaButton
             moveStepperLabel.isEnabled = false
-            moveStepperLabel.alpha = 0.5
+            moveStepperLabel.alpha = alphaButton
+            lightButton.isEnabled = false
+            lightButton.alpha = alphaButton
+            guidanceButton.isEnabled = false
+            guidanceButton.alpha = alphaButton
+            resumeButton.isEnabled = false
+            resumeButton.alpha = alphaButton
+            cameraContainerView.alpha = alphaButton
+            drawingCollectionView.alpha = alphaButton
+            lightPatternCollectionView.alpha = alphaButton
+            progressView.alpha = alphaButton
         }
     }
     
