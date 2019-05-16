@@ -44,6 +44,17 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var progressView: UIView!
     @IBOutlet weak var lightButton: UIButton!
     @IBOutlet weak var guidanceButton: UIButton!
+    @IBOutlet weak var brightnessSlider: UISlider!
+    @IBOutlet weak var brightnessLabel: UILabel!
+    @IBOutlet weak var usageLabel: UILabel!
+    @IBOutlet weak var usageMinLabel: UILabel!
+    @IBOutlet weak var idleBg: UIView!
+    @IBOutlet weak var drawingBg: UIView!
+    @IBOutlet weak var idleLabel: UILabel!
+    @IBOutlet weak var drawingLabel: UILabel!
+    @IBOutlet weak var idleMinLabel: UILabel!
+    @IBOutlet weak var drawingMinLabel: UILabel!
+    @IBOutlet weak var batteryChangedButton: UIButton!
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -52,7 +63,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var drawingCollectionView: UICollectionView!
     @IBOutlet weak var lightPatternCollectionView: UICollectionView!
     
-    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3"), UIImage(named: "drawing4"), UIImage(named: "drawing5"), UIImage(named: "drawing6") ]
+    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3"), UIImage(named: "drawing4"), UIImage(named: "drawing5"), UIImage(named: "drawing6"), UIImage(named: "drawing7") ]
 
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
@@ -62,6 +73,11 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     var pV: MDCProgressView!
     
     let alphaButton: CGFloat = 0.3
+    
+    var movingTimeStamp: Double = 0
+    var idleTimeStamp: Double = 0
+    
+    var isIdle = true
     
     var isConnected:Bool {
         get {
@@ -78,9 +94,22 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         
         let ip = UserDefaults.standard.string(forKey: "ip") ?? DEFAULT_IP
         let wifi = UserDefaults.standard.string(forKey: "wifi") ?? DEFAULT_WIFI
-
+        var timestamp = UserDefaults.standard.double(forKey: "timestamp") ?? NSDate().timeIntervalSince1970
+        
+        if (timestamp == 0) {
+            timestamp = NSDate().timeIntervalSince1970
+            UserDefaults.standard.set(timestamp, forKey: "timestamp")
+        }
+        
+        let currentTimeStamp = NSDate().timeIntervalSince1970
+        idleTimeStamp = currentTimeStamp
+        
+        let time = secondsToHoursMinutesSeconds(seconds: (Int)(currentTimeStamp - timestamp))
+        
+        
         ipAddressField.text = ip
         wifiField.text = wifi
+        //usageMinLabel.text = String(time.0)+"h "+String(time.1)+"min"
         
         mqttClient = CocoaMQTT(clientID: "iOS Device", host: ip, port: 6667)
         isConnected = false
@@ -107,6 +136,11 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         let pVHeight = CGFloat(20)
         pV.frame = CGRect(x: 0, y: progressView.bounds.height - pVHeight, width: progressView.bounds.width, height: pVHeight)
         progressView.addSubview(pV)
+        
+        let timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        
+        updateTime()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,6 +240,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         
         if ack == .accept {
             mqtt.subscribe("drawingstatus", qos: CocoaMQTTQOS.qos1)
+            mqtt.subscribe("status", qos: CocoaMQTTQOS.qos1)
         }
     }
     
@@ -224,6 +259,30 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             let percent = Float(message.string!)
             pV.progress = percent ?? 0.0
             print(message.topic)
+        } else if (message.topic == "status") {
+            let status = message.string
+            if (status=="DRAWING" || status=="JOGGING") {
+                if (status=="DRAWING") {
+                    drawingCollectionView.alpha = alphaButton
+                }
+                let currentTimeStamp = NSDate().timeIntervalSince1970
+                movingTimeStamp = currentTimeStamp
+                let addIdleTime = (Int)(currentTimeStamp - idleTimeStamp)
+                let totalIdleTime = UserDefaults.standard.integer(forKey: "idletimestamp") ?? 0 + addIdleTime
+                UserDefaults.standard.set(totalIdleTime, forKey: "idletimestamp")
+                isIdle = false
+                updateTime()
+                
+            } else if (status=="IDLE") {
+                drawingCollectionView.alpha = 1.0
+                let currentTimeStamp = NSDate().timeIntervalSince1970
+                idleTimeStamp = currentTimeStamp
+                let addMovingTime = (Int)(currentTimeStamp - movingTimeStamp)
+                let totalMovingTime = UserDefaults.standard.integer(forKey: "movingtimestamp") ?? 0 + addMovingTime
+                UserDefaults.standard.set(totalMovingTime, forKey: "movingtimestamp")
+                isIdle = true
+                updateTime()
+            }
         }
     }
     
@@ -240,7 +299,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     }
     
     func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-        isConnected = true
+        //isConnected = true
         print("mqttDidReceivePong")
     }
     
@@ -273,6 +332,91 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         mqttClient.publish("lightcontrol", withString: "toggleguidance")
     }
     
+    @IBAction func brightnessChanged(_ sender: UISlider) {
+        let string = "brightness " + String(sender.value)
+        mqttClient.publish("lightcontrol", withString: string)
+    }
+    
+    @IBAction func batteryWasChanged(_ sender: Any) {
+        
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to reset the battery counter?", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            self.resetBatteryCounter()
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
+    }
+    
+    func resetBatteryCounter() {
+        let timestamp = NSDate().timeIntervalSince1970
+        UserDefaults.standard.set(timestamp, forKey: "timestamp")
+        UserDefaults.standard.set(0, forKey: "idletimestamp")
+        UserDefaults.standard.set(0, forKey: "movingtimestamp")
+
+        idleTimeStamp = timestamp
+        
+        updateTime()
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60)
+    }
+    
+    @objc func updateTime()
+    {
+        let timestamp = UserDefaults.standard.double(forKey: "timestamp")
+        
+        let currentTimeStamp = NSDate().timeIntervalSince1970
+        
+        let time = secondsToHoursMinutesSeconds(seconds: (Int)(currentTimeStamp - timestamp))
+        
+        usageMinLabel.text = String(time.0)+"h "+String(time.1)+"min"
+        
+        var idletimestamp = 0
+        if (isIdle) {
+            let currentTimeStamp = NSDate().timeIntervalSince1970
+            let addIdleTime = (Int)(currentTimeStamp - idleTimeStamp)
+            idleTimeStamp = currentTimeStamp
+            idletimestamp = UserDefaults.standard.integer(forKey: "idletimestamp") + addIdleTime
+            UserDefaults.standard.set(idletimestamp, forKey: "idletimestamp")
+        } else {
+            idletimestamp = UserDefaults.standard.integer(forKey: "idletimestamp")
+        }
+        let idletimestamptupel = secondsToHoursMinutesSeconds(seconds: idletimestamp)
+        
+        idleMinLabel.text = String(idletimestamptupel.0)+"h "+String(idletimestamptupel.1)+"min"
+        
+        var movingtimestamp = 0
+        if (!isIdle) {
+            let currentTimeStamp = NSDate().timeIntervalSince1970
+            let addMovingTime = (Int)(currentTimeStamp - movingTimeStamp)
+            movingTimeStamp = currentTimeStamp
+            movingtimestamp = UserDefaults.standard.integer(forKey: "movingtimestamp") + addMovingTime
+            UserDefaults.standard.set(movingtimestamp, forKey: "movingtimestamp")
+
+        } else {
+            movingtimestamp = UserDefaults.standard.integer(forKey: "movingtimestamp")
+        }
+        
+        let movingtimestamptupel = secondsToHoursMinutesSeconds(seconds: movingtimestamp)
+        
+        drawingMinLabel.text = String(movingtimestamptupel.0)+"h "+String(movingtimestamptupel.1)+"min"
+        
+    }
     
     func setUI(for connected: Bool) {
         if connected {
@@ -322,6 +466,26 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             lightPatternCollectionView.allowsSelection = true
             drawingCollectionView.allowsSelection = true
             progressView.alpha = 1.0
+            brightnessSlider.alpha = 1.0
+            brightnessSlider.isEnabled = true
+            brightnessLabel.alpha = 1.0
+            brightnessLabel.isEnabled = true
+            usageLabel.alpha = 1.0
+            usageLabel.isEnabled = true
+            usageMinLabel.alpha = 1.0
+            usageMinLabel.isEnabled = true
+            idleBg.alpha = 0.8
+            drawingBg.alpha = 0.8
+            idleLabel.alpha = 1.0
+            idleLabel.isEnabled = true
+            drawingLabel.alpha = 1.0
+            drawingLabel.isEnabled = true
+            idleMinLabel.alpha = 1.0
+            idleMinLabel.isEnabled = true
+            drawingMinLabel.alpha = 1.0
+            drawingMinLabel.isEnabled = true
+            //batteryChangedButton.alpha = 1.0
+            //batteryChangedButton.isEnabled = true
         } else {
             disconnectBtn.isEnabled = false
             disconnectBtn.alpha = alphaButton
@@ -369,6 +533,26 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             lightPatternCollectionView.allowsSelection = false
             drawingCollectionView.allowsSelection = false
             progressView.alpha = alphaButton
+            brightnessSlider.alpha = alphaButton
+            brightnessSlider.isEnabled = false
+            brightnessLabel.alpha = alphaButton
+            brightnessLabel.isEnabled = false
+            usageLabel.alpha = alphaButton
+            usageLabel.isEnabled = false
+            usageMinLabel.alpha = alphaButton
+            usageMinLabel.isEnabled = false
+            idleBg.alpha = alphaButton
+            drawingBg.alpha = alphaButton
+            idleLabel.alpha = alphaButton
+            idleLabel.isEnabled = false
+            drawingLabel.alpha = alphaButton
+            drawingLabel.isEnabled = false
+            idleMinLabel.alpha = alphaButton
+            idleMinLabel.isEnabled = false
+            drawingMinLabel.alpha = alphaButton
+            drawingMinLabel.isEnabled = false
+            //batteryChangedButton.alpha = alphaButton
+            //batteryChangedButton.isEnabled = false
         }
     }
     
