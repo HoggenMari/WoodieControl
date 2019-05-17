@@ -55,6 +55,10 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var idleMinLabel: UILabel!
     @IBOutlet weak var drawingMinLabel: UILabel!
     @IBOutlet weak var batteryChangedButton: UIButton!
+    @IBOutlet weak var shockLabel: UILabel!
+    @IBOutlet weak var shockView: UIView!
+    @IBOutlet weak var detectionLabel: UILabel!
+    @IBOutlet weak var detectionSwitch: UISwitch!
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -241,6 +245,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         if ack == .accept {
             mqtt.subscribe("drawingstatus", qos: CocoaMQTTQOS.qos1)
             mqtt.subscribe("status", qos: CocoaMQTTQOS.qos1)
+            mqtt.subscribe("shock", qos: CocoaMQTTQOS.qos1)
         }
     }
     
@@ -283,7 +288,26 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
                 isIdle = true
                 updateTime()
             }
+        } else if (message.topic == "shock") {
+            let str = message.string
+            if (str=="alarm") {
+                resumeButton.backgroundColor = .green
+            } else {
+                animateView(shockView)
+            }
         }
+    }
+    
+    fileprivate func animateView(_ view: UIView) {
+        
+        view.backgroundColor = UIColor.white
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.allowUserInteraction], animations: {
+            view.backgroundColor = UIColor.red
+        }, completion: { [weak self] finished in
+            view.backgroundColor = UIColor.white
+        })
+        
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topic: String) {
@@ -314,6 +338,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     
     @IBAction func pauseButton(_ sender: Any) {
         mqttClient.publish("control", withString: "pause")
+        resumeButton.backgroundColor = UIColor.green
     }
     
     @IBAction func stopButton(_ sender: Any) {
@@ -322,6 +347,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     
     @IBAction func resumeButton(_ sender: Any) {
         mqttClient.publish("control", withString: "resume")
+        resumeButton.backgroundColor = UIColor.init(red: 0.42, green: 0.42, blue: 0.42, alpha: 1)
     }
     
     @IBAction func lightsOnButton(_ sender: Any) {
@@ -418,6 +444,14 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
         
     }
     
+    @IBAction func detectionSwitchChanged(_ sender: UISwitch) {
+        if (sender.isOn) {
+            mqttClient.publish("control", withString: "detection on")
+        } else {
+            mqttClient.publish("control", withString: "detection off")
+        }
+    }
+    
     func setUI(for connected: Bool) {
         if connected {
             disconnectBtn.isEnabled = true
@@ -484,6 +518,13 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             idleMinLabel.isEnabled = true
             drawingMinLabel.alpha = 1.0
             drawingMinLabel.isEnabled = true
+            shockLabel.alpha = 1.0
+            shockLabel.isEnabled = true
+            shockView.alpha = 1.0
+            detectionLabel.alpha = 1.0
+            detectionLabel.isEnabled = true
+            detectionSwitch.alpha = 1.0
+            detectionSwitch.isEnabled = true
             //batteryChangedButton.alpha = 1.0
             //batteryChangedButton.isEnabled = true
         } else {
@@ -551,6 +592,13 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
             idleMinLabel.isEnabled = false
             drawingMinLabel.alpha = alphaButton
             drawingMinLabel.isEnabled = false
+            shockLabel.alpha = alphaButton
+            shockLabel.isEnabled = false
+            shockView.alpha = alphaButton
+            detectionLabel.alpha = alphaButton
+            detectionLabel.isEnabled = false
+            detectionSwitch.alpha = alphaButton
+            detectionSwitch.isEnabled = false
             //batteryChangedButton.alpha = alphaButton
             //batteryChangedButton.isEnabled = false
         }
