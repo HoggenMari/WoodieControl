@@ -578,7 +578,7 @@
                                             <action selector="guidanceOnButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uJP-yw-Sp3"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="F7g-V8-hcQ">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="F7g-V8-hcQ">
                                         <rect key="frame" x="274" y="22.5" width="228" height="31.5"/>
                                         <connections>
                                             <action selector="brightnessChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="yfx-Ej-5bv"/>
