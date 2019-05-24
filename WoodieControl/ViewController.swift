@@ -67,7 +67,7 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
     @IBOutlet weak var drawingCollectionView: UICollectionView!
     @IBOutlet weak var lightPatternCollectionView: UICollectionView!
     
-    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3"), UIImage(named: "drawing4"), UIImage(named: "drawing5"), UIImage(named: "drawing6"), UIImage(named: "drawing7") ]
+    let drawingImages = [ UIImage(named: "drawing1"), UIImage(named: "drawing2"), UIImage(named: "drawing3"), UIImage(named: "drawing4"), UIImage(named: "drawing5"), UIImage(named: "drawing6"), UIImage(named: "drawing7"), UIImage(named: "drawing8") ]
 
     let DEFAULT_IP = "192.168.0.102"
     let DEFAULT_WIFI = "TP-LINK_783C"
