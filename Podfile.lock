@@ -1,10 +1,10 @@
 PODS:
   - CocoaAsyncSocket (7.6.3)
-  - CocoaMQTT (1.1.3):
+  - CocoaMQTT (1.2.2):
     - CocoaAsyncSocket (~> 7.6.3)
-  - MaterialComponents/Palettes (78.0.0)
-  - MaterialComponents/private/Math (78.0.0)
-  - MaterialComponents/ProgressView (78.0.0):
+  - MaterialComponents/Palettes (84.6.0)
+  - MaterialComponents/private/Math (84.6.0)
+  - MaterialComponents/ProgressView (84.6.0):
     - MaterialComponents/Palettes
     - MaterialComponents/private/Math
     - MDFInternationalization
@@ -32,8 +32,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CocoaMQTT: b506d38ad3bbe1c55a4f8ee8c9fd02c35da1a7d8
-  MaterialComponents: f50582fcff415a2459e62a29310fb3ec70a70234
+  CocoaMQTT: 88f76737a0f745280d5b06093ac8e9e99edcfa06
+  MaterialComponents: 71139af6ca6875fbde8ab8e64a275b7fd6a22d7f
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d

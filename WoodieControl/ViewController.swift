@@ -14,6 +14,8 @@ import MaterialComponents
 
 class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     var mqttClient: CocoaMQTT!
@@ -625,6 +627,9 @@ class ViewController: UIViewController, CocoaMQTTDelegate, UICollectionViewDeleg
 
     }
     
+    func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
+        
+    }
 
     
 }
